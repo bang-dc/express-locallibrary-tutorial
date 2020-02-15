@@ -9,7 +9,7 @@ var BookSchema = new Schema({
   },
   author: {
     type: Schema.Types.ObjectId,
-    ref: ' Author',
+    ref: 'Author',
     required: true
   },
   summary: {
