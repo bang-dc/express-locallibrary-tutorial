@@ -30,6 +30,7 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// make dependencies in node_modules available as static
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
 app.use('/', indexRouter);
