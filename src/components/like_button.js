@@ -1,8 +1,6 @@
-'use strict';
+import React from 'react';
 
-const e = React.createElement;
-
-class LikeButton extends React.Component {
+export default class LikeButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +13,7 @@ class LikeButton extends React.Component {
       return 'You liked this.';
     }
 
-    return e(
+    return React.createElement(
       'button', {
         onClick: () => this.setState({
           liked: true

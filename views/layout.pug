@@ -10,7 +10,7 @@ html(lang='en')
     script(src='/react/umd/react.production.min.js')
     script(src='/react-dom/umd/react-dom.production.min.js')
     script(src='/@material-ui/core/umd/material-ui.production.min.js')
-    script(src='/javascripts/like_button.js')
+    script(src='/javascripts/index.js')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     div(class='container-fluid')
@@ -45,4 +45,5 @@ html(lang='en')
           block content
     script.
       const domContainer = document.querySelector('#like_button_container');
-      ReactDOM.render(e(LikeButton), domContainer);
+      ReactDOM.render(React.createElement(LocalLibraryUI.LikeButton), domContainer);
+    
