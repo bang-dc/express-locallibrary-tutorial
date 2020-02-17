@@ -19,13 +19,7 @@ module.exports = {
     react: 'React'
   },
   devServer: {
-    contentBase: "./",
-    inline: true,
-    port: 8080,
-    proxy: {
-      // redirect request to port 3000 
-      // which is node.js server's port. Check ./bin/www file
-      '/': 'http://localhost:3000'
-    }
+    contentBase: path.join(__dirname, 'public/javascripts'),
+    compress: true
   }
 };

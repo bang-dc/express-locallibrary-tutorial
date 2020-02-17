@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var proxy = require('http-proxy-middleware');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -32,6 +33,16 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // make dependencies in node_modules available as static
 app.use(express.static(path.join(__dirname, 'node_modules')));
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(
+    '/javascripts/index.js',
+    proxy({
+      target: 'http://localhost:8080/',
+      changeOrigin: true
+    })
+  );
+}
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
