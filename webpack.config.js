@@ -15,11 +15,22 @@ module.exports = {
     // name of the global var: "mylib"
     library: "LocalLibraryUI"
   },
+  module: {
+    rules: [{
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      loader: 'babel-loader'
+    }]
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'] // Enable to leave off the extension when importing
+  },
   externals: {
     react: 'React'
   },
   devServer: {
     contentBase: path.join(__dirname, 'public/javascripts'),
     compress: true
-  }
+  },
+  devtool: 'source-map' // to help debugging
 };

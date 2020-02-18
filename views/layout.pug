@@ -42,9 +42,9 @@ html(lang='en')
                 
         div(class='col-sm-10')
           div(id='like_button_container')
-          div(id='table-react')
+          div(id='love_button_container')
           block content
     script.
-      const domContainer = document.querySelector('#like_button_container');
-      ReactDOM.render(React.createElement(LocalLibraryUI.LikeButton), domContainer);
+      ReactDOM.render(React.createElement(LocalLibraryUI.LikeButton), document.querySelector('#like_button_container'));
+      ReactDOM.render(React.createElement(LocalLibraryUI.LoveButton), document.querySelector('#love_button_container'));
     
