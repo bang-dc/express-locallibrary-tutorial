@@ -42,7 +42,7 @@ exports.book_list = function (req, res, next) {
       if (err) {
         return next(err);
       }
-
+      
       res.render('book_list', {
         title: 'Book List',
         books: books

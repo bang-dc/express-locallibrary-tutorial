@@ -11,6 +11,9 @@ html(lang='en')
     script(src='/react/umd/react.production.min.js')
     script(src='/react-dom/umd/react-dom.production.min.js')
     script(src='/@material-ui/core/umd/material-ui.production.min.js')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
+    //- js find bundled by webpack
     script(src='/javascripts/index.js')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
@@ -41,10 +44,6 @@ html(lang='en')
                 a(href='/catalog/bookinstance/create') Create new book instance (copy)
                 
         div(class='col-sm-10')
-          div(id='like_button_container')
-          div(id='love_button_container')
           block content
-    script.
-      ReactDOM.render(React.createElement(LocalLibraryUI.LikeButton), document.querySelector('#like_button_container'));
-      ReactDOM.render(React.createElement(LocalLibraryUI.LoveButton), document.querySelector('#love_button_container'));
+    block script
     

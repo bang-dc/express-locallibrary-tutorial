@@ -1,8 +1,13 @@
 extends layout
 
 block content
+  div(id='like_button_container')
+  div(id='love_button_container')
   h1= title
+
+  div(id='toto')
   
+  div(id='table')
   ul
     each book in books
       li 
@@ -10,3 +15,11 @@ block content
         |  (#{book.author.name})
     else
       li There are no books.
+block script
+  //- In order to output dynamic JavaScript in a Plain Text block we need to use unescaped interpolation to do it with
+  script.
+    var books = !{JSON.stringify(books)};
+    ReactDOM.render(React.createElement(LocalLibraryUI.LikeButton), document.querySelector('#like_button_container'));
+    ReactDOM.render(React.createElement(LocalLibraryUI.LoveButton), document.querySelector('#love_button_container'));
+    ReactDOM.render(React.createElement(LocalLibraryUI.SimpleTable, {books: books}), document.querySelector('#table'));
+    ReactDOM.render(React.createElement(LocalLibraryUI.Button), document.querySelector('#toto'));

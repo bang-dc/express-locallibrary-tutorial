@@ -47,4 +47,8 @@ AuthorSchema.virtual('url')
     return '/catalog/author/' + this._id;
   });
 
+AuthorSchema.options.toJSON = {
+  virtuals: true
+};
+
 module.exports = mongoose.model('Author', AuthorSchema);
