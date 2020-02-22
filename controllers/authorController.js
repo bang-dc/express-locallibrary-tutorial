@@ -1,6 +1,7 @@
 var Author = require('../models/author');
 var Book = require('../models/book');
 var async = require('async');
+const validator = require('express-validator');
 
 // Display list of all Authors.
 exports.author_list = function (req, res, next) {
@@ -51,14 +52,75 @@ exports.author_detail = function (req, res, next) {
 };
 
 // Display Author create form on GET.
-exports.author_create_get = function (req, res) {
-  res.send('NOT IMPLEMENTED: Author create GET');
+exports.author_create_get = function (req, res, next) {
+  res.render('author_form', {
+    title: 'Create Author'
+  });
 };
 
 // Handle Author create on POST.
-exports.author_create_post = function (req, res) {
-  res.send('NOT IMPLEMENTED: Author create POST');
-};
+exports.author_create_post = [
+  // Validate fields
+  validator.body('first_name').trim()
+  .isLength({
+    min: 1
+  }).withMessage('First name must be specified')
+  .isAlphanumeric().withMessage('First name has non-alphanumeric characters'),
+
+  validator.body('family_name').trim()
+  .isLength({
+    min: 1
+  }).withMessage('Family name must be specified')
+  .isAlphanumeric().withMessage('Family name has non-alphanumeric characters'),
+
+  validator.body('date_of_birth').optional({
+    checkFalsy: true
+  }).isISO8601().withMessage('Invalid date of birth'),
+
+  validator.body('date_of_death').optional({
+    checkFalsy: true
+  }).isISO8601().withMessage('Invalid date of birth'),
+
+  // Sanitize fields:
+  validator.sanitizeBody('first_name').escape(),
+  validator.sanitizeBody('first_name').escape(),
+  validator.sanitizeBody('date_of_birth').toDate(),
+  validator.sanitizeBody('date_of_death').toDate(),
+
+  // Process request after validation and sanitization
+  (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validator.validationResult(req);
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render form again with sanitized values/errors messages.
+      res.render('author_form', {
+        title: 'Create Author',
+        author: req.body,
+        errors: errors.array()
+      });
+      return;
+    } else {
+      // Data from form is valid.
+
+      // Create an Author object with escaped and trimmed data.
+      var author = new Author({
+        first_name: req.body.first_name,
+        family_name: req.body.family_name,
+        date_of_birth: req.body.date_of_birth,
+        date_of_death: req.body.date_of_death
+      });
+      author.save(function (err) {
+        if (err) {
+          return next(err);
+        }
+        // Successful - redirect to new author record.
+        res.redirect(author.url);
+      });
+
+    }
+  }
+];
 
 // Display Author delete form on GET.
 exports.author_delete_get = function (req, res) {
