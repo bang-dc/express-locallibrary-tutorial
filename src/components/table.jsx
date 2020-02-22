@@ -1,3 +1,5 @@
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { ThemeProvider } from '@material-ui/core/styles';
 import React from 'react';
 import theme from '../theme';
+
 export default class BooksTable extends React.Component {
   constructor(props) {
     super(props);
@@ -34,7 +37,16 @@ export default class BooksTable extends React.Component {
                       {book.title}
                     </TableCell>
                     <TableCell align="right">{book.author.name}</TableCell>
-                    <TableCell align="right">{book.url}</TableCell>
+                    <TableCell align="right">
+                      <Button
+                        href={book.url}
+                        variant="contained"
+                        color="primary"
+                        endIcon={<Icon>launch</Icon>}
+                      >
+                        Goto
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
