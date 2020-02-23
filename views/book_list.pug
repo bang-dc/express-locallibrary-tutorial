@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+  
+  div(id='table')
+block script
+  //- In order to output dynamic JavaScript in a Plain Text block we need to use unescaped interpolation to do it with
+  script.
+    var books = !{JSON.stringify(books)};
+
+    ReactDOM.render(React.createElement(LocalLibraryUI.SimpleTable, {books: books}), document.querySelector('#table'));
